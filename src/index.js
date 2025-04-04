@@ -42,7 +42,7 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 app.use(express.static(path.join(__dirname, '../dist/101413667_comp3133_assignment2_frontend')));
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../dist/101413667_comp3133_assignment2_frontend/browser/index.html'));
+    res.sendFile(path.join(__dirname, '../dist/101413667_comp3133_assignment2_frontend/index.html'));
   });
 
 async function startServer() {

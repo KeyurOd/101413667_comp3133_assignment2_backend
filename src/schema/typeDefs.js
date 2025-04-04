@@ -1,10 +1,10 @@
-// src/schema/typeDefs.js
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
   type User {
     id: ID!
-    username: String!
+    name: String!
+    email: String!
   }
 
   type AuthPayload {
@@ -14,12 +14,19 @@ const typeDefs = gql`
 
   type Employee {
     id: ID!
+    firstName: String!
+    lastName: String!
     name: String!
     department: String!
     position: String!
     profilePicture: String
     createdAt: String
     updatedAt: String
+  }
+
+  type DeleteResponse {
+    success: Boolean!
+    message: String
   }
 
   type Query {
@@ -29,11 +36,24 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    signup(username: String!, password: String!): AuthPayload
-    login(username: String!, password: String!): AuthPayload
-    addEmployee(name: String!, department: String!, position: String!, profilePicture: String): Employee
-    updateEmployee(id: ID!, name: String, department: String, position: String, profilePicture: String): Employee
-    deleteEmployee(id: ID!): Employee
+    signup(name: String!, email: String!, password: String!): AuthPayload
+    login(email: String!, password: String!): AuthPayload
+    addEmployee(
+      firstName: String!, 
+      lastName: String!, 
+      department: String!, 
+      position: String!, 
+      profilePicture: String
+    ): Employee
+    updateEmployee(
+      id: ID!, 
+      firstName: String, 
+      lastName: String, 
+      department: String, 
+      position: String, 
+      profilePicture: String
+    ): Employee
+    deleteEmployee(id: ID!): DeleteResponse
   }
 `;
 

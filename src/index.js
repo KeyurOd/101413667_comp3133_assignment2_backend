@@ -1,28 +1,21 @@
-// src/index.js
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
 const multer = require('multer');
-
 const typeDefs = require('./schema/typeDefs');
 const resolvers = require('./schema/resolvers');
 const config = require('./config');
 const { verifyToken } = require('./middleware/auth');
-
 const app = express();
 
-// Enable CORS
+
 app.use(cors());
-
-// Middleware to parse JSON bodies
 app.use(express.json());
-
-// Middleware to verify JWT token and attach user to request
 app.use(verifyToken);
 
-// Configure file uploads with multer
+
 const storage = multer.diskStorage({
   destination: './uploads/',
   filename: function (req, file, cb) {
@@ -31,24 +24,22 @@ const storage = multer.diskStorage({
 });
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 1000000 } // 1MB limit
+  limits: { fileSize: 10000000 } 
 }).single('profilePicture');
 
-// REST endpoint for file uploads
+
 app.post('/upload', (req, res) => {
   upload(req, res, err => {
     if (err) {
       return res.status(400).json({ message: err.message });
     }
-    // Return the path of the uploaded file so that the frontend can use it.
+
     res.json({ filePath: `/uploads/${req.file.filename}` });
   });
 });
 
-// Serve static files from the uploads folder
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
-// Set up Apollo Server and attach middleware
 async function startServer() {
   const server = new ApolloServer({
     typeDefs,
@@ -58,7 +49,7 @@ async function startServer() {
   await server.start();
   server.applyMiddleware({ app, path: '/graphql' });
 
-  // Connect to MongoDB
+
   mongoose.connect(config.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
       console.log('Connected to MongoDB');

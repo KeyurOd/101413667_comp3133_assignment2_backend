@@ -49,6 +49,7 @@ async function startServer() {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
+    cache: "bounded",
     context: ({ req }) => ({ user: req.user })
   });
   await server.start();

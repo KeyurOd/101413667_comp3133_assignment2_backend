@@ -11,7 +11,11 @@ const { verifyToken } = require('./middleware/auth');
 const app = express();
 
 
-app.use(cors());
+app.use(cors({
+    origin: 'https://one01413667-comp3133-assignment2-frontend.onrender.com',
+    credentials: true
+  }));
+  
 app.use(express.json());
 app.use(verifyToken);
 

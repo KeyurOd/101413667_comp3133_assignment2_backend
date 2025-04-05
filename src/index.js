@@ -15,7 +15,7 @@ app.use(cors({
     origin: 'https://one01413667-comp3133-assignment2-frontend.onrender.com',
     credentials: true
   }));
-  
+
 app.use(express.json());
 app.use(verifyToken);
 
@@ -51,7 +51,9 @@ async function startServer() {
     typeDefs,
     resolvers,
     cache: "bounded",
-    context: ({ req }) => ({ user: req.user })
+    context: ({ req }) => ({ user: req.user }),
+    introspection: true, 
+    playground: true
   });
   await server.start();
   server.applyMiddleware({ app, path: '/graphql' });

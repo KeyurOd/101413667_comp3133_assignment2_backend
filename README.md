@@ -34,26 +34,7 @@ This is the backend API for the Employee Management System, built with Node.js, 
    ```
    - The server will run at `http://localhost:5001`.
 
-## Project Structure
-```
-src/
-├── models/
-│   ├── employee.model.js    # Employee schema (MongoDB)
-│   └── user.model.js        # User schema (MongoDB)
-├── routes/
-│   ├── auth.routes.js       # Login/signup endpoints
-│   ├── employee.routes.js   # Employee CRUD endpoints
-│   └── file.routes.js       # File upload endpoints
-├── middleware/
-│   └── auth.middleware.js   # JWT authentication
-├── controllers/
-│   ├── auth.controller.js   # Authentication logic
-│   ├── employee.controller.js # Employee CRUD logic
-│   └── file.controller.js   # File upload logic
-├── config/
-│   └── db.config.js         # MongoDB connection
-└── server.js                # Entry point
-```
+
 
 ## API Endpoints
 - **Authentication**:
